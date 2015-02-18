@@ -9,13 +9,13 @@ class TestCipher(unittest.TestCase):
 
     def test_cipher_simple_letter(self):
         encoder = Encoder(1)
-        text = "A"
+        text = "a"
         encoding_text = encoder.cipher(text)
-        self.assertEqual(encoding_text, "B")
+        self.assertEqual(encoding_text, "b")
 
     def test_cipher_special_characters(self):
         encoder = Encoder(1)
-        text = "AÉB"
+        text = "aÉb"
         encoding_text = encoder.cipher(text)
-        self.assertEqual(encoding_text, "BÉC")
+        self.assertEqual(encoding_text, "bÉc")
 

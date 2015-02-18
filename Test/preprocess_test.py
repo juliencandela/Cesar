@@ -12,3 +12,4 @@ class TestCipher(unittest.TestCase):
         imported_text = preprocess_machine.import_text(url)
         self.assertEqual(imported_text[0], "T")
 
+
