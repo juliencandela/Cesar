@@ -1,6 +1,6 @@
 import unittest
 from encoder import Encoder
-
+from cipher import cipher
 
 __author__ = 'julien'
 
@@ -19,3 +19,7 @@ class TestCipher(unittest.TestCase):
         encoding_text = encoder.cipher(text)
         self.assertEqual(encoding_text, "bÉc")
 
+    def test_cipher_cipher(self):
+        text = "a"
+        encoded_text = cipher(text, 27)
+        self.assertEqual(encoded_text, "b")
