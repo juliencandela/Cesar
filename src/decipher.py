@@ -56,6 +56,8 @@ def get_shift(text):
 
 
 def decipher(text):
+    if not text:
+        return ''
     text = text.upper()
     key = get_shift(text)
     clear_text = ''

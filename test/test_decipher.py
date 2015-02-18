@@ -68,3 +68,7 @@ def test_decipher_alphabet_upper_bound():
 def test_decipher_alphabet_lower_bound():
     text = 'dkdldmsz'
     assert decipher(text) == 'elementa'.upper()
+
+
+def test_decipher_no_text():
+    assert decipher('') == ''
