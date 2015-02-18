@@ -26,5 +26,5 @@ class TestCipher(unittest.TestCase):
 
     def test_cipher_long_key(self):
         text = "poneydetypebeau"
-        encoded_text = cipher(text, "ab")
+        encoded_text = cipher(text, "")
         self.assertEqual(encoded_text, "ppnfyeeuyqecebu")
