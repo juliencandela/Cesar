@@ -1,6 +1,7 @@
 __author__ = 'jenselme'
 
 from string import ascii_letters
+from math import ceil
 
 
 expected_IC = {'fr': 0.0746}
@@ -9,6 +10,10 @@ SMALL_CAPS_LETTERS = set(ascii_letters.lower())
 
 def decipher_vigenaire(text):
     key_length = get_key_length(text)
+    #return key_length
+    print(key_length)
+    return ceil((expected_IC['fr'] - 0.0385) / (compute_IC(text) - 0.0385))
+    key_length = 5
     subtexts = ['' for i in range(key_length)]
     for index, letter in enumerate(text):
         subtexts[index % key_length] += letter
@@ -24,38 +29,44 @@ def decipher_vigenaire(text):
 
 
 def get_key_length(text):
-    best_lenght = 1
-    best_IC = 0
-    for i in range(2, 51):
-        subtexts = get_subtexts(text, i)
-        ICs = [compute_IC(subtext) for subtext in subtexts]
-        IC = sum(ICs) / len(ICs)
-        if abs(expected_IC['fr'] - IC) < 0.001:
-            return i
-        elif abs(expected_IC['fr'] - IC) < abs(expected_IC['fr'] - best_IC):
-            best_IC = IC
-            best_lenght = i
-    return best_lenght
+    # Method: https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher#Friedman_test
+    # or http://www.artofproblemsolving.com/blog/27160
+    # We try different value for the possible key length
+    ICs = []
+    for number_of_columns in range(2, 26):
+        # Transform text into a matrix with i rows and then compute the IC on the columns
+        matrix = get_text_matrix(text, number_of_columns)
+        subtexts = []
+        for i in range(number_of_columns):
+            subtexts.append('')
+            for j in range(len(matrix)):
+                # The last line can have less columns
+                try:
+                    subtexts[i] += matrix[i][j]
+                except IndexError:
+                    continue
+        subtexts_ICs = [compute_IC(subtext) for subtext in subtexts]
+        ICs.append(sum(subtexts_ICs) / len(subtexts_ICs))
+    # The key length is the index of the ICs with the best IC + 1 (index start at 0, key length at 1)
+    print(ICs)
+    return ICs.index(max(ICs)) + 1
 
 
-
-def get_subtexts(text, n):
-    subtexts = []
-    number_subtexts = int(len(text) / n)
-    for i in range(number_subtexts):
-        subtexts.append(text[i:i + n])
-    return subtexts
+def get_text_matrix(text, number_of_columns):
+    matrix = []
+    for i in range(0, len(text), number_of_columns):
+        matrix.append(text[i:i + number_of_columns])
+    return matrix
 
 
 def compute_IC(text):
     freq = letter_freq(text)
     n = get_number_small_caps_letter(text)
-    if n < 2:
-        return 0
     IC = 0
     for letter in SMALL_CAPS_LETTERS:
         n_q = freq.get(letter, 0)
-        IC += n_q * (n_q - 1) / (n * (n - 1))
+        IC += n_q * (n_q - 1)
+    IC /= (n * (n - 1))
     return IC
 
 
@@ -126,6 +137,7 @@ def decipher(text, key=None):
         return ''
     if key is None:
         key = get_shift(text)
+    print(key)
     text = text.lower()
     clear_text = ''
     for letter in text:
