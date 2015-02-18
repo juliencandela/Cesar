@@ -56,13 +56,23 @@ def get_shift(text):
     return ord('e'.lower()) - more_frequent_letter_code
 
 
-def decipher(text):
+def decipher(text, key=None):
     if not text:
         return ''
+    if key is None:
+        key = get_shift(text)
     text = text.lower()
-    key = get_shift(text)
     clear_text = ''
     for letter in text:
         clear_text += unshift_letter(letter, key)
 
     return clear_text
+
+
+def decipher_manual(text):
+    phrase = text.split(".")[0]
+    for i in range(0, 26):
+        clear_phrase = decipher(phrase, key=i)
+        print('key {}: {}'.format(i, clear_phrase))
+    key = int(input('Enter correct key: '))
+    return decipher(text, key=key)

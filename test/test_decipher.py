@@ -85,6 +85,7 @@ def test_decipher_file():
     args.is_url = False
     args.decipher = True
     args.cipher = False
+    args.manual = False
     assert cesar.main(args) == requests\
                                         .get('http://www.gutenberg.org/cache/epub/28210/pg28210.txt')\
                                         .text[10000:50000]\
