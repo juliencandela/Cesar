@@ -31,10 +31,21 @@ def unshift_letter(letter, key):
     if letter in ascii_letters:
         letter = letter.upper()
         letter_code = ord(letter)
-        unshift_letter_code = letter_code + key
+        unshift_letter_code = correct_letter_code(letter_code + key)
         return chr(unshift_letter_code)
     else:
         return letter
+
+
+def correct_letter_code(code):
+    """If code is outside ord('a')-ord('z'), we correct it
+    """
+    if code > ord('Z'):
+        return code - 26
+    elif code < ord('A'):
+        return code + 26
+    else:
+        return code
 
 
 def get_shift(text):

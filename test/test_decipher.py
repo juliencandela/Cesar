@@ -58,3 +58,13 @@ def test_decipher_space():
 def test_decipher_special_chars():
     text = 'fmfnfou-fmfnfouééé &&& ààà @@@@ ++ fmfnfou fmfnfou'
     assert decipher(text) == 'element-elementÉÉÉ &&& ààà @@@@ ++ element element'.upper()
+
+
+def test_decipher_alphabet_upper_bound():
+    text = 'fmfnfoua'
+    assert decipher(text) == 'elementz'.upper()
+
+
+def test_decipher_alphabet_lower_bound():
+    text = 'dkdldmsz'
+    assert decipher(text) == 'elementa'.upper()
