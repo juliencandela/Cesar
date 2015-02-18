@@ -6,10 +6,7 @@ from argparse import ArgumentParser
 import requests
 
 from decipher import decipher
-
-
-def cipher(text):
-    pass
+from encoder import Encoder
 
 
 def main(args):
@@ -17,7 +14,8 @@ def main(args):
     if args.decipher:
         return decipher(text)
     else:
-        return cipher(text)
+        cipher = Encoder(key=int(args.cipher))
+        return cipher.cipher(text)
 
 
 def get_file(file_name, is_url):
@@ -31,7 +29,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("file_name", metavar="file_name")
     parser.add_argument("-d", "--decipher", dest="decipher", action="store_true")
-    parser.add_argument("-c", "--cipher", dest="cipher", action="store_true")
+    parser.add_argument("-c", "--cipher", dest="cipher")
     parser.add_argument("-u", "--url", dest="is_url", action="store_true")
     args = parser.parse_args()
     print(main(args))
