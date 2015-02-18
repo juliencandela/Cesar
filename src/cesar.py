@@ -15,9 +15,9 @@ def cipher(text):
 def main(args):
     text = get_file(args.file_name, args.is_url)
     if args.decipher:
-        print(decipher(text))
+        return decipher(text)
     else:
-        print(cipher(text))
+        return cipher(text)
 
 
 def get_file(file_name, is_url):
@@ -34,4 +34,4 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--cipher", dest="cipher", action="store_true")
     parser.add_argument("-u", "--url", dest="is_url", action="store_true")
     args = parser.parse_args()
-    main(args)
+    print(main(args))

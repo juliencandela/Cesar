@@ -1,3 +1,6 @@
+from collections import namedtuple
+import requests
+
 from decipher import (
     letter_freq,
     unshift_letter,
@@ -5,6 +8,8 @@ from decipher import (
     get_shift,
     decipher,
 )
+
+import cesar
 
 
 def test_letter_freq():
@@ -72,3 +77,22 @@ def test_decipher_alphabet_lower_bound():
 
 def test_decipher_no_text():
     assert decipher('') == ''
+
+
+def test_decipher_file():
+    args = namedtuple('file_name', 'is_url', 'decipher', 'cipher')
+    args.file_name = 'test/encoded_text.txt'
+    args.is_url = False
+    args.decipher = True
+    args.cipher = False
+    assert cesar.main(args) == requests\
+                                        .get('http://www.gutenberg.org/cache/epub/28210/pg28210.txt')\
+                                        .text[10000:50000]\
+                                        .lower()\
+                                        .strip()\
+                                        .replace('\r\n', '\n')
+    print(requests
+           .get('http://www.gutenberg.org/cache/epub/28210/pg28210.txt')
+           .text[10000:50000]
+           .lower())
+    print(cesar.main(args))
