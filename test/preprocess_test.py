@@ -10,6 +10,6 @@ class TestCipher(unittest.TestCase):
         url = "https://www.gutenberg.org/cache/epub/28210/pg28210.txt"
         preprocess_machine = Preprocess()
         imported_text = preprocess_machine.import_text(url)
-        self.assertEqual(imported_text[0], "T")
+        self.assertEqual(imported_text[0], "e")
 
 
