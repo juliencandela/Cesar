@@ -8,7 +8,7 @@ __author__ = 'julien'
 class TestCipher(unittest.TestCase):
 
     def test_cipher_simple_letter(self):
-        encoder = Encoder(1)
+        encoder = Encoder(27)
         text = "a"
         encoding_text = encoder.cipher(text)
         self.assertEqual(encoding_text, "b")
