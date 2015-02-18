@@ -7,6 +7,10 @@ expected_IC = {'fr': 0.0746}
 SMALL_CAPS_LETTERS = set(ascii_letters.lower())
 
 
+def get_key_length(text):
+    pass
+
+
 def compute_IC(text):
     freq = letter_freq(text)
     n = get_number_small_caps_letter(text)

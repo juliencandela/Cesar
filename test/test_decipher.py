@@ -1,5 +1,6 @@
 from collections import namedtuple
 import requests
+import pytest
 
 from decipher import (
     letter_freq,
@@ -81,6 +82,7 @@ def test_decipher_no_text():
     assert decipher('') == ''
 
 
+@pytest.mark.skipif(True, reason='Uses network')
 def test_decipher_file():
     args = namedtuple('file_name', 'is_url', 'decipher', 'cipher')
     args.file_name = 'test/encoded_text.txt'
