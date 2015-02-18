@@ -24,7 +24,7 @@ def decipher_vigenaire(text):
 
 
 def get_key_length(text):
-    best_lenght = 0
+    best_lenght = 1
     best_IC = 0
     for i in range(2, 51):
         subtexts = get_subtexts(text, i)
@@ -50,6 +50,8 @@ def get_subtexts(text, n):
 def compute_IC(text):
     freq = letter_freq(text)
     n = get_number_small_caps_letter(text)
+    if n < 2:
+        return 0
     IC = 0
     for letter in SMALL_CAPS_LETTERS:
         n_q = freq.get(letter, 0)
