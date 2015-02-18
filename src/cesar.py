@@ -5,7 +5,7 @@ __author__ = 'jenselme'
 from argparse import ArgumentParser
 import requests
 
-from decipher import decipher, decipher_manual
+from decipher import decipher, decipher_manual, decipher_vigenaire
 from encoder import Encoder
 
 
@@ -17,6 +17,8 @@ def main(args):
         return decipher_manual(text)
     elif args.key > -1:
         return decipher(text, key=args.key)
+    elif args.vigenaire:
+        return decipher_vigenaire(text)
     else:
         cipher = Encoder(key=args.cipher)
         return cipher.cipher(text)
