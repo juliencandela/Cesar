@@ -37,5 +37,6 @@ if __name__ == "__main__":
     parser.add_argument("-u", "--url", dest="is_url", action="store_true")
     parser.add_argument("-m", "--manual", dest="manual", action="store_true")
     parser.add_argument("-k", "--key", dest="key", default=-1, type=int)
+    parser.add_argument("-v", "--vigenaire", dest="vigenaire", action="store_true")
     args = parser.parse_args()
     print(main(args))

@@ -7,9 +7,36 @@ expected_IC = {'fr': 0.0746}
 SMALL_CAPS_LETTERS = set(ascii_letters.lower())
 
 
+def decipher_vigenaire(text):
+    key_length = get_key_length(text)
+    subtexts = ['' for i in range(key_length)]
+    for index, letter in enumerate(text):
+        subtexts[index % key_length] += letter
+    deciphered_subtexts = [decipher(subtext) for subtext in subtexts]
+    clear_text = ''
+    for index in range(len(deciphered_subtexts[0])):
+        for subtext in deciphered_subtexts:
+            try:
+                clear_text += subtext[index]
+            except IndexError:
+                return clear_text
+    return clear_text
+
+
 def get_key_length(text):
-    for i in range(1, 51):
+    best_lenght = 0
+    best_IC = 0
+    for i in range(2, 51):
         subtexts = get_subtexts(text, i)
+        ICs = [compute_IC(subtext) for subtext in subtexts]
+        IC = sum(ICs) / len(ICs)
+        if abs(expected_IC['fr'] - IC) < 0.001:
+            return i
+        elif abs(expected_IC['fr'] - IC) < abs(expected_IC['fr'] - best_IC):
+            best_IC = IC
+            best_lenght = i
+    return best_lenght
+
 
 
 def get_subtexts(text, n):
