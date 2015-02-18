@@ -2,8 +2,9 @@ __author__ = 'jenselme'
 
 from string import ascii_letters
 
+
 def letter_freq(text):
-    text = text.upper()
+    text = text.lower()
     freq = {}
     for letter in text:
         if letter in ascii_letters:
@@ -29,7 +30,7 @@ def get_more_frequent_letter(text):
 
 def unshift_letter(letter, key):
     if letter in ascii_letters:
-        letter = letter.upper()
+        letter = letter.lower()
         letter_code = ord(letter)
         unshift_letter_code = correct_letter_code(letter_code + key)
         return chr(unshift_letter_code)
@@ -40,25 +41,25 @@ def unshift_letter(letter, key):
 def correct_letter_code(code):
     """If code is outside ord('a')-ord('z'), we correct it
     """
-    if code > ord('Z'):
+    if code > ord('z'.lower()):
         return code - 26
-    elif code < ord('A'):
+    elif code < ord('a'.lower()):
         return code + 26
     else:
         return code
 
 
 def get_shift(text):
-    text = text.upper()
+    text = text.lower()
     more_frequent_letter = get_more_frequent_letter(text)
     more_frequent_letter_code = ord(more_frequent_letter)
-    return ord('E') - more_frequent_letter_code
+    return ord('e'.lower()) - more_frequent_letter_code
 
 
 def decipher(text):
     if not text:
         return ''
-    text = text.upper()
+    text = text.lower()
     key = get_shift(text)
     clear_text = ''
     for letter in text:
