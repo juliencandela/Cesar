@@ -7,6 +7,8 @@ from decipher import (
     get_more_frequent_letter,
     get_shift,
     decipher,
+    compute_IC,
+    expected_IC
 )
 
 import cesar
@@ -97,3 +99,8 @@ def test_decipher_file():
            .text[10000:50000]
            .lower())
     print(cesar.main(args))
+
+
+def test_compute_IC():
+    computed_IC = compute_IC(open('test/encoded_text.txt', 'r').read())
+    assert abs(expected_IC['fr'] - computed_IC) < 0.0001

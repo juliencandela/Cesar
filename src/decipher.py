@@ -3,6 +3,21 @@ __author__ = 'jenselme'
 from string import ascii_letters
 
 
+expected_IC = {'fr': 0.0746}
+SMALL_CAPS_LETTERS = set(ascii_letters.lower())
+
+
+def compute_IC(text):
+    freq = letter_freq(text)
+    n = get_number_small_caps_letter(text)
+    IC = 0
+    for letter in SMALL_CAPS_LETTERS:
+        n_q = freq.get(letter, 0)
+        IC += n_q * (n_q - 1) / (n * (n - 1))
+    return IC
+
+
+
 def letter_freq(text):
     text = text.lower()
     freq = {}
@@ -14,6 +29,14 @@ def letter_freq(text):
                 freq[letter] = 1
 
     return freq
+
+
+def get_number_small_caps_letter(text):
+    n = 0
+    for letter in text:
+        if letter in SMALL_CAPS_LETTERS:
+            n += 1
+    return n
 
 
 def get_more_frequent_letter(text):
