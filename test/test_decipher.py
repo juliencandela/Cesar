@@ -49,3 +49,12 @@ def test_decipher_uncipher_text():
 def test_decipher():
     text = 'fmfnfou'
     assert decipher(text) == 'element'.upper()
+
+def test_decipher_space():
+    text = 'fmfnfou fmfnfou'
+    assert decipher(text) == 'element element'.upper()
+
+
+def test_decipher_special_chars():
+    text = 'fmfnfou-fmfnfouééé &&& ààà @@@@ ++ fmfnfou fmfnfou'
+    assert decipher(text) == 'element-elementÉÉÉ &&& ààà @@@@ ++ element element'.upper()

@@ -28,10 +28,13 @@ def get_more_frequent_letter(text):
 
 
 def unshift_letter(letter, key):
-    letter = letter.upper()
-    letter_code = ord(letter)
-    unshift_letter_code = letter_code + key
-    return chr(unshift_letter_code)
+    if letter in ascii_letters:
+        letter = letter.upper()
+        letter_code = ord(letter)
+        unshift_letter_code = letter_code + key
+        return chr(unshift_letter_code)
+    else:
+        return letter
 
 
 def get_shift(text):
@@ -46,7 +49,6 @@ def decipher(text):
     key = get_shift(text)
     clear_text = ''
     for letter in text:
-        if letter in ascii_letters:
-            clear_text += unshift_letter(letter, key)
+        clear_text += unshift_letter(letter, key)
 
     return clear_text
