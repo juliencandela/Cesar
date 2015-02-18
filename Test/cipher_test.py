@@ -13,8 +13,9 @@ class TestCipher(unittest.TestCase):
         encoding_text = encoder.cipher(text)
         self.assertEqual(encoding_text, "B")
 
-    def test_cipher_space(self):
+    def test_cipher_special_characters(self):
         encoder = Encoder(1)
-        text = "A B"
+        text = "AÉB"
         encoding_text = encoder.cipher(text)
-        self.assertEqual(encoding_text, "B C")
+        self.assertEqual(encoding_text, "BÉC")
+
