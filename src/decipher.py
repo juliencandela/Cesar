@@ -8,7 +8,16 @@ SMALL_CAPS_LETTERS = set(ascii_letters.lower())
 
 
 def get_key_length(text):
-    pass
+    for i in range(1, 51):
+        subtexts = get_subtexts(text, i)
+
+
+def get_subtexts(text, n):
+    subtexts = []
+    number_subtexts = int(len(text) / n)
+    for i in range(number_subtexts):
+        subtexts.append(text[i:i + n])
+    return subtexts
 
 
 def compute_IC(text):

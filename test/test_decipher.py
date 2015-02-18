@@ -9,8 +9,8 @@ from decipher import (
     get_shift,
     decipher,
     compute_IC,
-    expected_IC
-)
+    expected_IC,
+    get_subtexts)
 
 import cesar
 
@@ -106,3 +106,11 @@ def test_decipher_file():
 def test_compute_IC():
     computed_IC = compute_IC(open('test/encoded_text.txt', 'r').read())
     assert abs(expected_IC['fr'] - computed_IC) < 0.0001
+
+
+def test_subtests():
+    text = open('test/pg17989.txt', 'r').read()
+    subtexts = get_subtexts(text, 10)
+    assert len(subtexts) == int(len(text) / 10)
+    for subtext in subtexts:
+        assert len(subtext) == 10
